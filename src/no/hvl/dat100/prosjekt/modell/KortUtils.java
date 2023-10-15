@@ -2,8 +2,6 @@ package no.hvl.dat100.prosjekt.modell;
 
 import java.util.Random;
 
-import no.hvl.dat100.prosjekt.TODO;
-
 public class KortUtils {
 
 	/**
@@ -16,11 +14,18 @@ public class KortUtils {
 	 */
 	
 	public static void sorter(KortSamling samling) {
+		Kort[] sortert = samling.getSamling();
+		int antallKort = samling.getAntalKort();
 		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		// TODO - END
+		for(int i = 0; i < antallKort - 1; i++) {
+			for(int j = 0; j < antallKort - i - 1; j++) {
+				if(sortert[j].compareTo(sortert[j+1]) > 0) {
+					Kort temp = sortert[j];
+					sortert[j] = sortert[j+1];
+					sortert[j+1] = temp;
+				}
+			}
+		}
 	}
 	
 	/**
@@ -30,11 +35,16 @@ public class KortUtils {
 	 * 			samling av kort som skal stokkes. 
 	 */
 	public static void stokk(KortSamling samling) {
+		Kort[] stokket = samling.getSamling();
+		int antallKort = samling.getAntalKort();
+		Random random = new Random();
 		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		// TODO - END
+		for(int i = antallKort - 1; i > 0; i--) {
+			int j = random.nextInt(i + 1);
+			Kort temp = stokket[i];
+			stokket[i] = stokket[j];
+			stokket[j] = temp;
+		}
 	}
 	
 }

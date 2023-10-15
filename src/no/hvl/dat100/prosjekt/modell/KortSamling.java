@@ -21,11 +21,8 @@ public class KortSamling {
 	 * Oppretter en tom Kortsamling med plass til MAKS_KORT (hele kortstokken).
 	 */
 	public KortSamling() {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.constructor("KortSamling"));
-		// TODO - END
+		samling = new Kort[MAKS_KORT];
+		antall = 0;
 	}
 
 	/**
@@ -38,9 +35,7 @@ public class KortSamling {
 	 * @return tabell av kort.
 	 */
 	public Kort[] getSamling() {
-		
 		return samling;
-		
 	}
 	
 	/**
@@ -49,12 +44,7 @@ public class KortSamling {
 	 * @return antall kort i samlinga.
 	 */
 	public int getAntalKort() {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
+		return antall;
 	}
 	
 	/**
@@ -63,12 +53,7 @@ public class KortSamling {
 	 * @return true om samlinga er tom, false ellers.
 	 */
 	public boolean erTom() {
-		
-		// TODO - START
-				
-		throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
+		return antall == 0;
 	}
 
 	/**
@@ -78,12 +63,10 @@ public class KortSamling {
 	 *            er kortet som skal leggast til.
 	 */
 	public void leggTil(Kort kort) {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		// TODO - END
-		
+		if(antall < MAKS_KORT) {
+			samling[antall] = kort;
+			antall++;
+		}
 	}
 	
 	/**
@@ -91,23 +74,21 @@ public class KortSamling {
 	 * slik at de normalt må stokkes før bruk.
 	 */
 	public void leggTilAlle() {
-		
-		// TODO - START
-		// Husk: bruk Regler.MAKS_KORT_FARGE for å få antall kort per farge
-		
-		throw new UnsupportedOperationException(TODO.method());
-		// TODO - END
+		antall = 0;
+		for(Kortfarge farge : Kortfarge.values()) {
+			for(int i = 1; i <= Regler.MAKS_KORT_FARGE; i++) {
+				samling[antall] = new Kort(farge, i);
+				antall++;
+			}
+		}
 	}
 
 	/**
 	 * Fjerner alle korta fra samlinga slik at den blir tom.
 	 */
 	public void fjernAlle() {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		// TODO - END
+		samling = new Kort[MAKS_KORT];
+		antall = 0;
 	}
 	
 	/**
@@ -117,13 +98,11 @@ public class KortSamling {
 	 *         null.
 	 */
 	public Kort seSiste() {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - END
-		
+		if(antall > 0 && antall <= MAKS_KORT) {
+			return samling[antall-1];
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -133,12 +112,14 @@ public class KortSamling {
 	 *         null.
 	 */
 	public Kort taSiste() {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
+		if(antall > 0 && antall <= MAKS_KORT) {
+			Kort ut = samling[antall-1];
+			samling[antall-1] = null;
+			antall--;
+			return ut;
+		} else {
+			return null;
+		}
 	}
 	
 	/**
@@ -149,13 +130,12 @@ public class KortSamling {
 	 * @return true om kortet finst i samlinga, false ellers.
 	 */
 	public boolean har(Kort kort) {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		// return false;
-		// TODO - END
-		
+		for (Kort card : samling) {
+	        if (card != null && card.equals(kort)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 	/**
@@ -169,12 +149,14 @@ public class KortSamling {
 	 */
 			 
 	public boolean fjern(Kort kort) {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - END
+		for(int i = 0; i < samling.length; i++) {
+			if(samling[i] != null && samling[i].equals(kort)) {
+				samling[i] = null;
+				antall--;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -184,13 +166,15 @@ public class KortSamling {
 	 *         som i kortsamlinga.
 	 */
 	public Kort[] getAllekort() {
-		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - END
-	
+		Kort[] remaining = new Kort[antall];
+		int index = 0;
+		for(int i = 0; i < samling.length; i++) {
+			if(samling[i] != null) {
+				remaining[index] = samling[i];
+				index++;
+			}
+		}
+		return remaining;
 	}
 	
 }
