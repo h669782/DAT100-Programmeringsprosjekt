@@ -36,23 +36,28 @@ public class SydSpiller extends Spiller {
 	 */
 	@Override
 	public Handling nesteHandling(Kort topp) {
-		
-		Kort[] hand = getHand().getAllekort();
-		
-		if(hand.length == 0) {
-			return new Handling(HandlingsType.TREKK, null);
-		}
-		
-		for(Kort k : hand) {
-			if(Regler.kanLeggeNed(k, topp)) {
-				return new Handling(HandlingsType.LEGGNED, k);
-			}
-		}
-		
-		if(getAntallTrekk() < Regler.maksTrekk()) {
-			return new Handling(HandlingsType.TREKK, null);
-		} else {
-			return new Handling(HandlingsType.FORBI, null);
-		}
+	    
+	    if (topp == null) {
+	        return new Handling(HandlingsType.TREKK, null);
+	    }
+	    
+	    Kort[] hand = getHand().getAllekort();
+	    
+	    if (hand.length == 0) {
+	        return new Handling(HandlingsType.TREKK, null);
+	    }
+	    
+	    for (Kort k : hand) {
+	        if (k != null && Regler.kanLeggeNed(k, topp)) {
+	            return new Handling(HandlingsType.LEGGNED, k);
+	        }
+	    }
+	    
+	    if (getAntallTrekk() < Regler.maksTrekk()) {
+	        return new Handling(HandlingsType.TREKK, null);
+	    } else {
+	        return new Handling(HandlingsType.FORBI, null);
+	    }
 	}
+
 }
